@@ -1,32 +1,25 @@
-name: SonarQube Analysis
-
 on:
+  # Trigger analysis when pushing to your main branches, and when creating a pull request.
   push:
     branches:
-      - main  # Nombre de tu rama principal
+      - main
+      - master
+      - develop
+      - 'releases/**'
+  pull_request:
+      types: [opened, synchronize, reopened]
 
+name: Main Workflow
 jobs:
   sonarqube:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Set up JDK
-        uses: actions/setup-java@v1
-        with:
-          java-version: '11'
-
-      - name: Set SonarQube environment variables
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: 'https://sonarcloud.io/testingbpop/'
-        run: |
-          echo "SONAR_TOKEN=$SONAR_TOKEN" >> $GITHUB_ENV
-          echo "SONAR_HOST_URL=$SONAR_HOST_URL" >> $GITHUB_ENV
-
-      - name: SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@v1
-        with:
-          projectBaseDir: './'  # Directorio base de tu proyecto
+    - uses: actions/checkout@v3
+      with:
+        # Disabling shallow clone is recommended for improving relevancy of reporting
+        fetch-depth: 0
+    - name: SonarQube Scan
+      uses: sonarsource/sonarqube-scan-action@master
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
