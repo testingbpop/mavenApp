@@ -23,3 +23,4 @@ jobs:
         with:
           sonarqube-token: ${{secrets.SONAR_TOKEN}}
           sonarqube-url: 'https://sonarcloud.io/testingbpop/'
+          distribution: 'sonarqube'
