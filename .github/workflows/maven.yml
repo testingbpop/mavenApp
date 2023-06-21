@@ -21,4 +21,5 @@ jobs:
       - name: SonarQube Scan
         uses: sonarsource/sonarqube-scan-action@v2
         with:
-          sonarqube-token: ${{secrets.SONAR_TOKEN}}
+          sonar-token: ${{ secrets.SONARQUBE_TOKEN }}
+          project-base-dir: './'  # Directorio base de tu proyecto
