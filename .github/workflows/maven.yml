@@ -21,6 +21,6 @@ jobs:
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v1
         with:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_TOKEN: ${{secrets.SONAR_TOKEN}}
           SONAR_HOST_URL: 'https://sonarcloud.io/testingbpop/'
           projectBaseDir: './'  # Directorio base de tu proyecto
