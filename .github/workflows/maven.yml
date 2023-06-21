@@ -17,10 +17,16 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: '11'
-          
+
+      - name: Set SonarQube environment variables
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: 'https://sonarcloud.io/testingbpop/'
+        run: |
+          echo "SONAR_TOKEN=$SONAR_TOKEN" >> $GITHUB_ENV
+          echo "SONAR_HOST_URL=$SONAR_HOST_URL" >> $GITHUB_ENV
+
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v1
         with:
-          SONAR_TOKEN: ${{secrets.SONAR_TOKEN}}
-          SONAR_HOST_URL: 'https://sonarcloud.io/testingbpop/'
           projectBaseDir: './'  # Directorio base de tu proyecto
