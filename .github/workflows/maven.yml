@@ -22,4 +22,4 @@ jobs:
         run: mvn clean install -B
 
       - name: SonarQube Scan
-        run: mvn sonar:sonar -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN
+        run: mvn sonar:sonar -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN -Dsonar.distribution=community
