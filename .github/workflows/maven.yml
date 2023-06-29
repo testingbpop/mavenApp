@@ -3,24 +3,33 @@ name: SonarQube Analysis
 on:
   push:
     branches:
-      - main
+      - main  # Cambia esto según tu rama principal
+  pull_request:
+    branches:
+      - main  # Cambia esto según tu rama principal
 
 jobs:
-  sonarqube:
+  sonarQubeTrigger:
+    name: SonarQube Trigger
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Set up JDK 11
-        uses: actions/setup-java@v2
-        with:
-          java-version: 11
-          distribution: 'adopt'
-
-      - name: Build with Maven
-        run: mvn clean install -B
-
-      - name: SonarQube Scan
-        run: mvn sonar:sonar -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN -Dsonar.distribution=community
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: Set up JDK 11
+      uses: actions/setup-java@v2
+      with:
+        java-version: 11
+        distribution: 'adopt'
+    - name: Build with Maven
+      run: mvn clean install -B
+    - name: Run Bash command
+      run: |
+          sudo java -version
+          echo "Ingreso bash....!"
+          ls -l
+          sudo apt update
+          wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip
+          unzip sonar-scanner-cli-4.6.2.2472-linux.zip
+          export PATH=$PWD/sonar-scanner-4.6.2.2472-linux/bin:$PATH
+          sonar-scanner -v
+          sonar-scanner -Dsonar.java.binaries=. -Dsonar.host.url=SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN -Dsonar.projectName=mavenApp -Dsonar.projectKey=mavenApp -Dsonar.coverage.jacoco.xmlReportPaths=build/customJacocoReportDir/test/jacocoTestReport.xml
