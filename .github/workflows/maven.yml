@@ -51,5 +51,5 @@ jobs:
           #unzip sonar-scanner-cli-4.6.2.2472-linux.zip
           #export PATH=$PWD/sonar-scanner-4.6.2.2472-linux/bin:$PATH
           #sonar-scanner -v
-          sonar-scanner -Dsonar.java.binaries=. -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} -Dsonar.login=${{ secrets.SONAR_TOKEN }} -Dsonar.projectName=mavenApp -Dsonar.projectKey=mavenApp -Dsonar.coverage.jacoco.xmlReportPaths=build/customJacocoReportDir/test/jacocoTestReport.xml
+          sonar-scanner -Dsonar.java.binaries=. -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} -Dsonar.login=${{ secrets.SONAR_TOKEN }} -Dsonar.projectName=mavenApp -Dsonar.projectKey=mavenApp -Dsonar.branch.name=main -Dsonar.coverage.jacoco.xmlReportPaths=build/customJacocoReportDir/test/jacocoTestReport.xml
           #mvn clean verify sonar:sonar -Dsonar.projectKey=testingbpop_mavenApp_AYj5emtyUXJM9CSO92GO -Dsonar.host.url=http://test-alb-1437210607.us-east-1.elb.amazonaws.com:8444 -Dsonar.login=sqp_a09cb07d412aa7c033d6f5a3959ead5d3f74e24d
